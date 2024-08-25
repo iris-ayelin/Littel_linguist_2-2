@@ -18,6 +18,8 @@ import { FormsModule } from "@angular/forms";
 import { ConfirmExitDialogComponent } from "../confirm-exit-dialog/confirm-exit-dialog.component";
 import { MatDialog } from "@angular/material/dialog";
 import { ReturnAnswerDialogComponent } from "../return-answer-dialog/return-answer-dialog.component";
+import { MatButtonModule } from "@angular/material/button";
+import { MatDividerModule } from "@angular/material/divider";
 
 @Component({
   selector: "app-mixed-letters-game",
@@ -31,7 +33,10 @@ import { ReturnAnswerDialogComponent } from "../return-answer-dialog/return-answ
     MatIconModule,
     FormsModule,
     ConfirmExitDialogComponent,
+    MatButtonModule,
+    MatDividerModule
   ],
+
   templateUrl: "./mixed-letters-game.component.html",
   styleUrls: ["./mixed-letters-game.component.css"],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -46,23 +51,22 @@ export class MixedLettersGameComponent implements OnInit {
   feedback = "";
   feedbackClass = "";
   coins = 0;
-  correctGuesses = 0; // Add this to track correct guesses
-  incorrectGuesses = 0; // Add this to track incorrect guesses
+  correctGuesses = 0;
+  incorrectGuesses = 0;
   readonly confirmDialog = inject(MatDialog);
-  isCorrect: any;
-  answerDialog: any;
+  readonly answerDialog = inject(MatDialog);
+  isCorrect: Boolean = false;
 
   constructor(
     private categoriesService: CategoriesService,
     private route: ActivatedRoute,
-    private router: Router
   ) {}
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
       const id = params.get("id");
       if (id) {
-        const categoryId = +id; // Convert string to number
+        const categoryId = +id;
         this.currentCategory = this.categoriesService.get(categoryId);
 
         if (this.currentCategory) {
@@ -97,27 +101,32 @@ export class MixedLettersGameComponent implements OnInit {
 
 
   //Checks the user's guess, provides feedback, updates scores, and loads the next word
-  submit(): void {
+  checkGuess(): void {
+    console.log('succeed')
     const pointsPerWord = Math.floor(100 / this.words.length);
+    
     if (
       this.originWord &&
       this.userGuess.toLowerCase() ===
         this.words[this.currentWordIndex].origin.toLowerCase()
     ) {
-      this.feedback = "Correct! Guess the next word";
-      this.feedbackClass = "correct-feedback";
+      console.log('succeed')
+      this.isCorrect = true
+      
+      this.openAnswerDialog(this.isCorrect)
       this.coins += pointsPerWord;
       this.coins++;
-      this.correctGuesses++; // Increment correct guesses
+      this.correctGuesses++;
     } else {
-      this.feedback = "Incorrect!";
-      this.feedbackClass = "incorrect-feedback";
-      this.incorrectGuesses++; // Increment incorrect guesses
+      console.log('failed')
+      this.isCorrect = false
+      this.openAnswerDialog(this.isCorrect)
+      this.incorrectGuesses++;
     }
 
-    this.userGuess = ""; // Reset the guess input
-    this.currentWordIndex++; // Move to the next word
-    this.setNextWord(); // Load the next word
+    this.userGuess = "";
+    this.currentWordIndex++;
+    this.setNextWord();
   }
 
   //Resets the user input, feedback, and feedback style
@@ -140,9 +149,9 @@ export class MixedLettersGameComponent implements OnInit {
 
     this.answerDialog.open(ReturnAnswerDialogComponent, {
       data: dialogData,
-      width: '80vw', // Adjust width to fit content
-      maxWidth: '350px', // Maximum width for large screens
-      height: 'auto' // Adjust height based on content
+      width: '80vw',
+      maxWidth: '350px',
+      height: 'auto' 
     });
   }
 
