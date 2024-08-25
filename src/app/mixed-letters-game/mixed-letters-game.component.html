@@ -1,0 +1,38 @@
+<div class="title-container">
+  <h1 class="title">Mixed Letters - {{ currentCategory?.name }}</h1>
+</div>
+
+<div *ngIf="originWord">
+  <mat-card class="game-card">
+    <mat-card-header>
+      <mat-card-title>{{ originWord }}</mat-card-title>
+
+      <div class="coins-container-right">
+        <mat-icon class="coin-icon">attach_money</mat-icon>
+        <span class="coin-count">{{ coins }}</span>
+      </div>
+    </mat-card-header>
+
+    <mat-card-content>
+      <p class="target-word">{{ words[currentWordIndex]?.target }}</p>
+      <mat-form-field appearance="fill">
+        <mat-label>Your Guess</mat-label>
+        <input matInput [(ngModel)]="userGuess" placeholder="Enter your guess">
+      </mat-form-field>
+      <div class="button-group">
+        <button mat-raised-button color="primary" (click)="submit()">Submit</button>
+        <button mat-raised-button color="warn" (click)="resetForm()">Reset</button>
+        <button mat-raised-button color="accent" (click)="exitGame()">Exit</button>
+      </div>
+      <p *ngIf="feedback" [ngClass]="feedbackClass" class="feedback">{{ feedback }}</p>
+    </mat-card-content>
+  </mat-card>
+
+  <div class="progress-container" *ngIf="words.length > 0">
+    <mat-progress-bar mode="determinate" [value]="progress" class="custom-progress-bar"></mat-progress-bar>
+  </div>
+</div>
+
+<div *ngIf="!originWord && feedback" class="completion-message">
+  <p [ngClass]="feedbackClass">{{ feedback }}</p>
+</div>

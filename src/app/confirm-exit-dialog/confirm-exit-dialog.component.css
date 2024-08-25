@@ -1,0 +1,52 @@
+.dialog-title {
+  color: #3f51b5;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.dialog-content {
+  font-size: 16px;
+  color: #555;
+  margin-bottom: 16px;
+}
+
+.dialog-actions {
+  margin-top: 16px;
+}
+
+.dialog-button {
+  border-radius: 4px;
+  padding: 10px 20px;
+  margin-left: 8px;
+  font-weight: bold;
+  font-size: 14px;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.leave-button {
+  color: #333;
+  background-color: #f5f5f5;
+  border: 1px solid #ccc;
+}
+
+.stay-button {
+  color: #fff;
+  background-color: #8293f3;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.dialog-button:hover {
+  opacity: 0.9;
+}
+
+.leave-button:hover {
+  background-color: #e0e0e0;
+}
+
+.stay-button:hover {
+  background-color: #4f5aa6;
+}
+
+.dialog-button:active {
+  transform: scale(0.98);
+}

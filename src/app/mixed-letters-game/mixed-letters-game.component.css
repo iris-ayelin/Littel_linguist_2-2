@@ -1,0 +1,92 @@
+.title-container {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.title {
+  font-size: 24px;
+  color: #3f51b5;
+}
+
+.game-card {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.target-word {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+.mat-form-field {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.button-group {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.feedback {
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.correct-feedback {
+  color: green;
+}
+
+.incorrect-feedback {
+  color: red;
+}
+
+/* Container for the progress bar to add margin and center it */
+.progress-container {
+  margin: 20px auto;
+  width: 80%; /* Adjust the width as needed */
+  text-align: center;
+}
+
+/* Style for the card header to position the coins container */
+.mat-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Container for coins display aligned to the right */
+.coins-container-right {
+  display: flex;
+  align-items: center;
+  margin-left: auto; /* Pushes the container to the right */
+}
+
+/* Style for the coin icon */
+.coin-icon {
+  font-size: 24px; /* Icon size */
+  color: gold; /* Coin color */
+  margin-right: 5px; /* Space between icon and count */
+}
+
+/* General styling (as before) */
+.progress-container {
+  margin: 20px auto;
+  width: 80%;
+  text-align: center;
+}
+
+.custom-progress-bar {
+  height: 20px;
+  border-radius: 10px;
+  background-color: #f3f3f3;
+}
+
+.completion-message {
+  text-align: center;
+  font-size: 1.2em;
+  color: #4caf50;
+}

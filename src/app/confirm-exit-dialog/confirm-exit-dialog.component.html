@@ -1,0 +1,10 @@
+<h2 mat-dialog-title class="dialog-title">Hi, are you sure you want to leave?</h2>
+
+<mat-dialog-content class="dialog-content">
+  <p>You may lose any unsaved progress if you leave. Are you sure you want to exit?</p>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end" class="dialog-actions">
+  <button mat-button mat-dialog-close class="dialog-button leave-button" (click)="onConfirm()">Yes, I'm sure</button>
+  <button mat-button mat-dialog-close class="dialog-button stay-button" (click)="onCancel()">No, I want to stay</button>
+</mat-dialog-actions>

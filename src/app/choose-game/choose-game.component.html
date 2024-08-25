@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Choose Game</title>
+  </head>
+  <body>
+    <div class="container">
+      <div *ngFor="let game of allGames">
+        <mat-card class="game-card" (click)="openDialog(game)" >
+          <mat-card-header>
+            <mat-card-title>{{ game.gameName }}</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <p class="game-description">{{ game.gameDescription }}</p>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,12 @@
+<mat-toolbar color="primary">
+  <button mat-icon-button [matMenuTriggerFor]="menu">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <h1 routerLink="">Littel Linguist 2 </h1>
+  <span class="example-spacer"></span>
+  <mat-icon>perm_identity</mat-icon>
+</mat-toolbar>
+<mat-menu #menu="matMenu">
+  <button mat-menu-item routerLink="admin">Admin</button>
+  <button mat-menu-item routerLink="lets-play">Let's Play</button>
+</mat-menu>

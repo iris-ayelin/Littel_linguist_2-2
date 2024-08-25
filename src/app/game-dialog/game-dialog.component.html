@@ -1,0 +1,13 @@
+<div class="dialog-content">
+  <h2>Select a Category</h2>
+  <mat-form-field>
+    <mat-select placeholder="Choose Category" [(ngModel)]="selectedCategory">
+      <mat-option *ngFor="let category of categories" [value]="category">{{ category.name }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <div *ngIf="selectedCategory">
+    <p>{{ selectedCategory.words.length }} words</p>
+    <p>Last update: {{ selectedCategory.lastUpdateDate | date }}</p>
+  </div>
+  <button mat-button (click)="letsPlay()" [disabled]="!selectedCategory">Let's Play</button>
+</div>
