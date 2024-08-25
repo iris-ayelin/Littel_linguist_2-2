@@ -1,0 +1,55 @@
+/* Set max width and height for the dialog container */
+mat-dialog-container {
+    max-width: 90vw; /* Adjust as needed */
+    max-height: 80vh; /* Adjust as needed */
+    overflow: auto; /* Enable scrolling if content overflows */
+  }
+  
+  /* Wrapper to handle layout and sizing */
+  .dialog-content-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  /* Styles for dialog content */
+  .dialog-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 16px;
+    max-width: 100%; /* Ensure content fits within the dialog */
+  }
+  
+  /* Icon styles */
+  .success-icon {
+    color: #4caf50; /* Green for success */
+    font-size: 48px; /* Adjust size as needed */
+    padding-right: 25px;
+    padding-bottom: 25px;
+  }
+  
+  .error-icon {
+    color: #f44336; /* Red for error */
+    font-size: 48px; /* Adjust size as needed */
+    padding-right: 25px;
+    padding-bottom: 25px;
+  }
+  
+  mat-dialog-content {
+    padding: 15px;
+    overflow: auto; /* Ensure content scrolls if needed */
+  }
+  
+  mat-dialog-actions {
+    padding: 5px;
+    text-align: center;
+  }
+  
+  button {
+    margin: 0 auto;
+  }
+  

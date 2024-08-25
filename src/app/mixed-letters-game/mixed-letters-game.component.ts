@@ -17,6 +17,7 @@ import { MatIconModule } from "@angular/material/icon"; // Import MatIconModule
 import { FormsModule } from "@angular/forms";
 import { ConfirmExitDialogComponent } from "../confirm-exit-dialog/confirm-exit-dialog.component";
 import { MatDialog } from "@angular/material/dialog";
+import { ReturnAnswerDialogComponent } from "../return-answer-dialog/return-answer-dialog.component";
 
 @Component({
   selector: "app-mixed-letters-game",
@@ -48,6 +49,8 @@ export class MixedLettersGameComponent implements OnInit {
   correctGuesses = 0; // Add this to track correct guesses
   incorrectGuesses = 0; // Add this to track incorrect guesses
   readonly confirmDialog = inject(MatDialog);
+  isCorrect: any;
+  answerDialog: any;
 
   constructor(
     private categoriesService: CategoriesService,
@@ -127,6 +130,20 @@ export class MixedLettersGameComponent implements OnInit {
   //Opens a dialog to confirm exiting the game
   openConfirmDialog() {
     this.confirmDialog.open(ConfirmExitDialogComponent);
+  }
+
+  openAnswerDialog(isCorret: Boolean): void {
+    const dialogData = {
+      feedbackMessage: this.isCorrect ? "Correct! Guess the next word" : "Try again!",
+      isCorrect: this.isCorrect
+    };
+
+    this.answerDialog.open(ReturnAnswerDialogComponent, {
+      data: dialogData,
+      width: '80vw', // Adjust width to fit content
+      maxWidth: '350px', // Maximum width for large screens
+      height: 'auto' // Adjust height based on content
+    });
   }
 
   //Initiates the confirm dialog to potentially exit the game
