@@ -53,6 +53,7 @@ export class MixedLettersGameComponent implements OnInit {
   coins = 0;
   correctGuesses = 0;
   incorrectGuesses = 0;
+  game_result: Array<number> = []
   readonly confirmDialog = inject(MatDialog);
   readonly answerDialog = inject(MatDialog);
   isCorrect: Boolean = false;
@@ -60,6 +61,7 @@ export class MixedLettersGameComponent implements OnInit {
   constructor(
     private categoriesService: CategoriesService,
     private route: ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -83,9 +85,8 @@ export class MixedLettersGameComponent implements OnInit {
       const currentWord = this.words[this.currentWordIndex];
       this.originWord = this.scrambleWord(currentWord.origin);
     } else {
-      
-      this.feedbackClass = "correct-feedback";
-      this.originWord = null;
+      // Retrieving State
+      this.navWithResultData();
     }
   }
 
@@ -102,15 +103,12 @@ export class MixedLettersGameComponent implements OnInit {
 
   //Checks the user's guess, provides feedback, updates scores, and loads the next word
   checkGuess(): void {
-    console.log('succeed')
-    const pointsPerWord = Math.floor(100 / this.words.length);
-    
+    const pointsPerWord = Math.floor(100 / this.words.length); 
     if (
       this.originWord &&
       this.userGuess.toLowerCase() ===
         this.words[this.currentWordIndex].origin.toLowerCase()
     ) {
-      console.log('succeed')
       this.isCorrect = true
       
       this.openAnswerDialog(this.isCorrect)
@@ -118,12 +116,12 @@ export class MixedLettersGameComponent implements OnInit {
       this.coins++;
       this.correctGuesses++;
     } else {
-      console.log('failed')
       this.isCorrect = false
       this.openAnswerDialog(this.isCorrect)
       this.incorrectGuesses++;
     }
-
+    this.navWithResultData()
+    console.log(this.game_result)
     this.userGuess = "";
     this.currentWordIndex++;
     this.setNextWord();
@@ -163,5 +161,10 @@ export class MixedLettersGameComponent implements OnInit {
   //Computes and returns the progress percentage based on words guessed
   get progress(): number {
     return (this.currentWordIndex / this.words.length) * 100;
+  }
+
+  navWithResultData() {
+    const resultData = { correctAnswers: 5, incorrectAnswers: 2 };
+    this.router.navigate(['mixed-letters-game-results'], { state: { resultData } });
   }
 }

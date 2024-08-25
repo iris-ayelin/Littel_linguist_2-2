@@ -7,6 +7,7 @@ import { ChooseGameComponent } from './choose-game/choose-game.component';
 import { MatchWordsComponent } from './match-words-game/match-words-game.component';
 import { MixedLettersGameComponent } from './mixed-letters-game/mixed-letters-game.component';
 import { SortedWordsGameComponent } from './sorted-words-game/sorted-words-game.component';
+import { MixedLettersGameResultsComponent } from './mixed-letters-game-results/mixed-letters-game-results.component';
 
 
 export const routes: Routes = [
@@ -19,6 +20,7 @@ export const routes: Routes = [
     {path: "mixed-letters-game/:id", component: MixedLettersGameComponent},
     {path: "sorted-words-game/:id", component: SortedWordsGameComponent },
     {path: "lets-play", component: ChooseGameComponent},
+    {path: "mixed-letters-game-results", component: MixedLettersGameResultsComponent}
 
 ];
 
