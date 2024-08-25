@@ -20,9 +20,9 @@
         <input matInput [(ngModel)]="userGuess" placeholder="Enter your guess">
       </mat-form-field>
       <div class="button-group">
-        <button mat-raised-button color="primary" (click)="submit()">Submit</button>
-        <button mat-raised-button color="warn" (click)="resetForm()">Reset</button>
-        <button mat-raised-button color="accent" (click)="exitGame()">Exit</button>
+        <mat-icon aria-label="" (click)="submit()">spellcheck</mat-icon>
+        <mat-icon aria-label="" (click)="resetForm()">restore</mat-icon>
+        <mat-icon aria-label="" (click)="exitGame()">exit_to_app</mat-icon>
       </div>
       <p *ngIf="feedback" [ngClass]="feedbackClass" class="feedback">{{ feedback }}</p>
     </mat-card-content>
