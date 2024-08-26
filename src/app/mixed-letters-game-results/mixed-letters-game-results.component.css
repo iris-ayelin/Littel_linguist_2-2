@@ -34,3 +34,17 @@ mat-icon {
 mat-icon.cancel {
   color: red; /* Error icon color */
 }
+
+.results-container {
+  margin: 20px;
+  text-align: center;
+}
+
+.mat-elevation-z8 {
+  margin: 20px auto;
+  width: 80%;
+}
+
+button {
+  margin-top: 20px;
+}

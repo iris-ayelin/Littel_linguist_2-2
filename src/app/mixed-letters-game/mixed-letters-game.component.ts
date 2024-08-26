@@ -20,6 +20,8 @@ import { MatDialog } from "@angular/material/dialog";
 import { ReturnAnswerDialogComponent } from "../return-answer-dialog/return-answer-dialog.component";
 import { MatButtonModule } from "@angular/material/button";
 import { MatDividerModule } from "@angular/material/divider";
+import { GamesService } from "../services/games.service";
+
 
 @Component({
   selector: "app-mixed-letters-game",
@@ -32,9 +34,10 @@ import { MatDividerModule } from "@angular/material/divider";
     MatProgressBarModule,
     MatIconModule,
     FormsModule,
-    ConfirmExitDialogComponent,
     MatButtonModule,
     MatDividerModule,
+    ConfirmExitDialogComponent, // Ensure these components are standalone or imported correctly.
+    ReturnAnswerDialogComponent
   ],
   templateUrl: "./mixed-letters-game.component.html",
   styleUrls: ["./mixed-letters-game.component.css"],
@@ -52,19 +55,20 @@ export class MixedLettersGameComponent implements OnInit {
   incorrectGuesses = 0;
   readonly confirmDialog = inject(MatDialog);
   readonly answerDialog = inject(MatDialog);
+  readonly router = inject(Router);
+  readonly route = inject(ActivatedRoute);
+  readonly categoriesService = inject(CategoriesService);
+  readonly gamesService = inject(GamesService);
   isCorrect = false;
-
-  constructor(
-    private categoriesService: CategoriesService,
-    private route: ActivatedRoute,
-    private router: Router
-  ) {}
+  
+  // Track word results
+  wordResults: { hebrewWord: string; guessedWord: string; isCorrect: boolean }[] = [];
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
       const id = params.get("id");
       if (id) {
-        const categoryId = +id;
+        const categoryId = +id; // Ensure that id is a number
         this.currentCategory = this.categoriesService.get(categoryId);
 
         if (this.currentCategory) {
@@ -95,18 +99,27 @@ export class MixedLettersGameComponent implements OnInit {
 
   checkGuess(): void {
     const pointsPerWord = Math.floor(100 / this.words.length);
+    const currentWord = this.words[this.currentWordIndex];
+    
     if (
       this.originWord &&
-      this.userGuess.toLowerCase() ===
-        this.words[this.currentWordIndex].origin.toLowerCase()
+      this.userGuess.toLowerCase() === currentWord.origin.toLowerCase()
     ) {
       this.isCorrect = true;
-      this.coins += pointsPerWord + 1;
+      this.coins += pointsPerWord;
       this.correctGuesses++;
     } else {
       this.isCorrect = false;
       this.incorrectGuesses++;
     }
+
+    // Track the result
+    this.wordResults.push({
+      hebrewWord: currentWord.target,
+      guessedWord: this.userGuess,
+      isCorrect: this.isCorrect,
+    });
+
     this.openAnswerDialog(this.isCorrect);
     this.userGuess = "";
     this.currentWordIndex++;
@@ -117,7 +130,7 @@ export class MixedLettersGameComponent implements OnInit {
     this.userGuess = "";
   }
 
-  openConfirmDialog() {
+  openConfirmDialog(): void {
     this.confirmDialog.open(ConfirmExitDialogComponent);
   }
 
@@ -144,14 +157,15 @@ export class MixedLettersGameComponent implements OnInit {
   }
 
   navWithResultData(): void {
-    const resultData = {
-      correctAnswers: this.correctGuesses,
-      incorrectAnswers: this.incorrectGuesses,
-      coins: this.coins,
-    };
+    // Store the game results in the GamesService
+    this.gamesService.setResults(
+      this.wordResults,
+      this.correctGuesses,
+      this.incorrectGuesses,
+      this.coins
+    );
 
-    this.router.navigate(["/mixed-letters-game-results"], {
-      queryParams: resultData,
-    });
+    // Navigate to the results page without query params
+    this.router.navigate(["/mixed-letters-game-results"]);
   }
 }
