@@ -4977,12 +4977,6 @@ var MatRippleLoader = _MatRippleLoader;
 })();
 
 export {
-  coerceBooleanProperty,
-  coerceNumberProperty,
-  _isNumberValue,
-  coerceArray,
-  coerceCssPixelValue,
-  coerceElement,
   Platform,
   getSupportedInputTypes,
   normalizePassiveListenerOptions,
@@ -5000,6 +4994,12 @@ export {
   DOWN_ARROW,
   A,
   hasModifierKey,
+  coerceBooleanProperty,
+  coerceNumberProperty,
+  _isNumberValue,
+  coerceArray,
+  coerceCssPixelValue,
+  coerceElement,
   ObserversModule,
   addAriaReferencedId,
   removeAriaReferencedId,
@@ -5056,4 +5056,4 @@ export {
   MatOptionModule,
   MatRippleLoader
 };
-//# sourceMappingURL=chunk-CG45NA2G.js.map
+//# sourceMappingURL=chunk-L6EXZ45E.js.map

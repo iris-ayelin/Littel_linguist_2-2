@@ -20,7 +20,7 @@ export const routes: Routes = [
     {path: "mixed-letters-game/:id", component: MixedLettersGameComponent},
     {path: "sorted-words-game/:id", component: SortedWordsGameComponent },
     {path: "lets-play", component: ChooseGameComponent},
-    {path: "mixed-letters-game-results", component: MixedLettersGameResultsComponent}
+    { path: 'mixed-letters-game-results', component: MixedLettersGameResultsComponent },
 
 ];
 

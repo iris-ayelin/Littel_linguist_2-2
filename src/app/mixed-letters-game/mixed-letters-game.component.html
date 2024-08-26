@@ -5,6 +5,8 @@
 <div *ngIf="originWord">
   <mat-card class="game-card">
     <mat-card-header>
+      <!-- display the interpretation in Hebrew (target word) -->
+      <mat-card-subtitle>{{ words[currentWordIndex]?.target }}</mat-card-subtitle>
       <mat-card-title>{{ originWord }}</mat-card-title>
 
       <div class="coins-container-right">
@@ -14,25 +16,29 @@
     </mat-card-header>
 
     <mat-card-content>
-      <!-- <p class="target-word">{{ words[currentWordIndex]?.target }}</p> -->
       <mat-form-field appearance="fill">
         <mat-label>Your Guess</mat-label>
         <input matInput [(ngModel)]="userGuess" placeholder="Enter your guess">
       </mat-form-field>
       <div class="button-group">
-        <button mat-mini-fab color="primary" [disabled]="userGuess.length == 0" (click)="checkGuess()">
-          <mat-icon aria-label="">spellcheck</mat-icon>
+        <button mat-mini-fab color="primary" [disabled]="!userGuess" (click)="checkGuess()">
+          <mat-icon aria-label="Check Guess">spellcheck</mat-icon>
         </button>
-        <button mat-mini-fab aria-label="" [disabled]="userGuess.length == 0" (click)="resetForm()">
-          <mat-icon aria-label="">restore</mat-icon>
+        <button mat-mini-fab (click)="resetForm()">
+          <mat-icon aria-label="Reset Form">restore</mat-icon>
         </button>
-        <button mat-mini-fab aria-label="" (click)="exitGame()">
-          <mat-icon aria-label="">exit_to_app</mat-icon>
+        <button mat-mini-fab (click)="exitGame()">
+          <mat-icon aria-label="Exit Game">exit_to_app</mat-icon>
         </button>
       </div>
     </mat-card-content>
   </mat-card>
+  
   <div class="progress-container" *ngIf="words.length > 0">
+    <div class="progress-info">
+      <span class="current-word-number">{{ currentWordIndex + 1 }}</span>
+      <span class="total-words">/ {{ words.length }}</span>
+    </div>
     <mat-progress-bar mode="determinate" [value]="progress" class="custom-progress-bar"></mat-progress-bar>
   </div>
 </div>

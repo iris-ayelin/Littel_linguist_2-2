@@ -26,6 +26,6 @@ export class ReturnAnswerDialogComponent {
   }
 
   onClose() {
-    this.dialogRef.close(); // Close the dialog
+    this.dialogRef.close();
   }
 }

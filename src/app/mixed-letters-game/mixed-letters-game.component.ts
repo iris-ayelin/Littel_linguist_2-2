@@ -13,7 +13,7 @@ import { MatCardModule } from "@angular/material/card";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
 import { MatProgressBarModule } from "@angular/material/progress-bar";
-import { MatIconModule } from "@angular/material/icon"; // Import MatIconModule
+import { MatIconModule } from "@angular/material/icon";
 import { FormsModule } from "@angular/forms";
 import { ConfirmExitDialogComponent } from "../confirm-exit-dialog/confirm-exit-dialog.component";
 import { MatDialog } from "@angular/material/dialog";
@@ -36,7 +36,6 @@ import { MatDividerModule } from "@angular/material/divider";
     MatButtonModule,
     MatDividerModule
   ],
-
   templateUrl: "./mixed-letters-game.component.html",
   styleUrls: ["./mixed-letters-game.component.css"],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -45,18 +44,15 @@ export class MixedLettersGameComponent implements OnInit {
   @Input() id = "";
   currentCategory?: Category;
   words: { origin: string; target: string }[] = [];
-  currentWordIndex: number = 0;
+  currentWordIndex = 0;
   originWord: string | null = null;
   userGuess = "";
-  feedback = "";
-  feedbackClass = "";
   coins = 0;
   correctGuesses = 0;
   incorrectGuesses = 0;
-  game_result: Array<number> = []
   readonly confirmDialog = inject(MatDialog);
   readonly answerDialog = inject(MatDialog);
-  isCorrect: Boolean = false;
+  isCorrect = false;
 
   constructor(
     private categoriesService: CategoriesService,
@@ -79,18 +75,15 @@ export class MixedLettersGameComponent implements OnInit {
     });
   }
 
-  //Sets the next scrambled word
   private setNextWord(): void {
     if (this.currentWordIndex < this.words.length) {
       const currentWord = this.words[this.currentWordIndex];
       this.originWord = this.scrambleWord(currentWord.origin);
     } else {
-      // Retrieving State
       this.navWithResultData();
     }
   }
 
-  //Randomly shuffles the letters of a given word
   private scrambleWord(word: string): string {
     const scrambled = word.split("");
     for (let i = scrambled.length - 1; i > 0; i--) {
@@ -100,8 +93,6 @@ export class MixedLettersGameComponent implements OnInit {
     return scrambled.join("");
   }
 
-
-  //Checks the user's guess, provides feedback, updates scores, and loads the next word
   checkGuess(): void {
     const pointsPerWord = Math.floor(100 / this.words.length); 
     if (
@@ -109,40 +100,31 @@ export class MixedLettersGameComponent implements OnInit {
       this.userGuess.toLowerCase() ===
         this.words[this.currentWordIndex].origin.toLowerCase()
     ) {
-      this.isCorrect = true
-      
-      this.openAnswerDialog(this.isCorrect)
-      this.coins += pointsPerWord;
-      this.coins++;
+      this.isCorrect = true;
+      this.coins += pointsPerWord + 1;
       this.correctGuesses++;
     } else {
-      this.isCorrect = false
-      this.openAnswerDialog(this.isCorrect)
+      this.isCorrect = false;
       this.incorrectGuesses++;
     }
-    this.navWithResultData()
-    console.log(this.game_result)
+    this.openAnswerDialog(this.isCorrect);
     this.userGuess = "";
     this.currentWordIndex++;
     this.setNextWord();
   }
 
-  //Resets the user input, feedback, and feedback style
   resetForm(): void {
     this.userGuess = "";
-    this.feedback = "";
-    this.feedbackClass = "";
   }
 
-  //Opens a dialog to confirm exiting the game
   openConfirmDialog() {
     this.confirmDialog.open(ConfirmExitDialogComponent);
   }
 
-  openAnswerDialog(isCorret: Boolean): void {
+  openAnswerDialog(isCorrect: boolean): void {
     const dialogData = {
-      feedbackMessage: this.isCorrect ? "Correct! Guess the next word" : "Try again!",
-      isCorrect: this.isCorrect
+      feedbackMessage: isCorrect ? "Correct!" : "Incorrect!",
+      isCorrect: isCorrect
     };
 
     this.answerDialog.open(ReturnAnswerDialogComponent, {
@@ -153,18 +135,24 @@ export class MixedLettersGameComponent implements OnInit {
     });
   }
 
-  //Initiates the confirm dialog to potentially exit the game
   exitGame(): void {
-    this.openConfirmDialog()
+    this.openConfirmDialog();
   }
 
-  //Computes and returns the progress percentage based on words guessed
   get progress(): number {
     return (this.currentWordIndex / this.words.length) * 100;
   }
 
-  navWithResultData() {
-    const resultData = { correctAnswers: 5, incorrectAnswers: 2 };
-    this.router.navigate(['mixed-letters-game-results'], { state: { resultData } });
+  navWithResultData(): void {
+    const resultData = {
+      correctAnswers: this.correctGuesses,
+      incorrectAnswers: this.incorrectGuesses,
+      coins: this.coins
+    };
+  
+    this.router.navigate(['/mixed-letters-game-results'], {
+      queryParams: resultData
+    });
   }
+  
 }

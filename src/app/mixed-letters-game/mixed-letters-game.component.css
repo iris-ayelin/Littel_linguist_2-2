@@ -90,3 +90,29 @@
   font-size: 1.2em;
   color: #4caf50;
 }
+
+.progress-container {
+  margin-top: 20px;
+  position: relative;
+}
+
+.progress-info {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.current-word-number {
+  font-size: 14px;
+  color: #000;
+}
+
+.total-words {
+  font-size: 14px;
+  color: #000;
+}
+
+.custom-progress-bar {
+  width: 100%;
+}
+
