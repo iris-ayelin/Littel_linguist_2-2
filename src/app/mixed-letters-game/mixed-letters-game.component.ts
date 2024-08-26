@@ -34,7 +34,7 @@ import { MatDividerModule } from "@angular/material/divider";
     FormsModule,
     ConfirmExitDialogComponent,
     MatButtonModule,
-    MatDividerModule
+    MatDividerModule,
   ],
   templateUrl: "./mixed-letters-game.component.html",
   styleUrls: ["./mixed-letters-game.component.css"],
@@ -94,7 +94,7 @@ export class MixedLettersGameComponent implements OnInit {
   }
 
   checkGuess(): void {
-    const pointsPerWord = Math.floor(100 / this.words.length); 
+    const pointsPerWord = Math.floor(100 / this.words.length);
     if (
       this.originWord &&
       this.userGuess.toLowerCase() ===
@@ -124,14 +124,14 @@ export class MixedLettersGameComponent implements OnInit {
   openAnswerDialog(isCorrect: boolean): void {
     const dialogData = {
       feedbackMessage: isCorrect ? "Correct!" : "Incorrect!",
-      isCorrect: isCorrect
+      isCorrect: isCorrect,
     };
 
     this.answerDialog.open(ReturnAnswerDialogComponent, {
       data: dialogData,
-      width: '80vw',
-      maxWidth: '350px',
-      height: 'auto' 
+      width: "80vw",
+      maxWidth: "350px",
+      height: "auto",
     });
   }
 
@@ -147,12 +147,11 @@ export class MixedLettersGameComponent implements OnInit {
     const resultData = {
       correctAnswers: this.correctGuesses,
       incorrectAnswers: this.incorrectGuesses,
-      coins: this.coins
+      coins: this.coins,
     };
-  
-    this.router.navigate(['/mixed-letters-game-results'], {
-      queryParams: resultData
+
+    this.router.navigate(["/mixed-letters-game-results"], {
+      queryParams: resultData,
     });
   }
-  
 }

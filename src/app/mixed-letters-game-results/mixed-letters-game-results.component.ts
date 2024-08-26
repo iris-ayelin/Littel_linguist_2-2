@@ -11,7 +11,7 @@ export class MixedLettersGameResultsComponent implements OnInit {
   incorrectCount: number = 0;
   coins: number = 0;
   displayedColumns: string[] = ['hebrewWord', 'guessedWord', 'status'];
-  dataSource: any[] = [];
+  dataSource: [] = [];
 
   constructor(private route: ActivatedRoute) {}
 
