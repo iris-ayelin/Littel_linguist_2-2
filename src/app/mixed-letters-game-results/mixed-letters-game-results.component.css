@@ -1,20 +1,50 @@
 .results-container {
-    padding: 16px;
-  }
-  
-  .mat-table {
-    width: 100%;
-  }
-  
-  .mat-header-cell, .mat-cell {
-    text-align: center;
-  }
-  
-  .correct {
-    color: green;
-  }
-  
-  .incorrect {
-    color: red;
-  }
-  
+  padding: 20px;
+  margin: 20px auto;
+  max-width: 400px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.results-container h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.results-container p {
+  font-size: 18px;
+  margin: 10px 0;
+}
+
+.result-icon {
+  margin-left: 10px;
+  font-size: 20px;
+}
+
+.actions {
+  margin-top: 20px;
+}
+
+button[mat-raised-button] {
+  width: 30%;
+  padding: 10px 0;
+}
+
+
+.mat-table {
+  width: 100%;
+}
+
+.mat-header-cell, .mat-cell {
+  text-align: center;
+}
+
+.correct {
+  color: green;
+}
+
+.incorrect {
+  color: red;
+}
+
